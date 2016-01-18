@@ -30,7 +30,10 @@ func TestMMA(test *testing.T) {
   }
   if _, e := a.Find(5.0); e==nil { bad("Find error.") }
 
-  if a.momentum != 1.5 - 1.0 { bad("momentum.") }
-  if a.pivot != true { bad("pivot.") }
-  if a.count != 3 { bad("count.") }
+  if a.Momentum != 1.5 - 1.0 { bad("Momentum.") }
+  if a.Count != 3 { bad("Count.") }
+
+  if a.Pivot != false { bad("A: Pivot.") }
+  a.Add(0.0)
+  if a.Pivot != true { bad("B: Pivot.") }
 }
