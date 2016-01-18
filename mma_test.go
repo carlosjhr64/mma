@@ -1,24 +1,25 @@
 package mma
 
 import "testing"
-import "fmt"
-
-var puts = fmt.Println
 
 func TestMMA(test *testing.T) {
   bad := test.Error
   var s string
 
   a := New(2.0, 3.0, 4.0)
+
   a.Init(1.0)
+
   s = a.String()
-  if s != "{ 2:1 3:1 4:1 }[ 1 ]" { bad("Init or String") }
+  if s != "mma[ 2:1 3:1 4:1 ]{ count:1 momentum:0 pivot:false }" { bad("Init or String.") }
 
   a.Add(1.0)
+
   s = a.String()
-  if s != "{ 2:1 3:1 4:1 }[ 2 ]" { bad("Add or String") }
+  if s != "mma[ 2:1 3:1 4:1 ]{ count:2 momentum:0 pivot:false }" { bad("Add or String.") }
 
   a.Add(2.0)
+
   twoMma,   _ := a.Find(2.0)
   threeMma, _ := a.Find(3.0)
   fourMma,  _ := a.Find(4.0)
@@ -29,5 +30,7 @@ func TestMMA(test *testing.T) {
   }
   if _, e := a.Find(5.0); e==nil { bad("Find error.") }
 
-  if a.count != 3 { bad("count") }
+  if a.momentum != 1.5 - 1.0 { bad("momentum.") }
+  if a.pivot != true { bad("pivot.") }
+  if a.count != 3 { bad("count.") }
 }
