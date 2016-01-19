@@ -3,7 +3,7 @@ package mma
 import "fmt"
 import "errors"
 
-const VERSION string = "0.0.0"
+const VERSION string = "0.1.0"
 
 type MMA struct {
   Length int
@@ -67,6 +67,8 @@ func (mma *MMA) String() string {
   for i:=0; i<mma.Length; i++ {
     s += fmt.Sprintf(" %v:%v", mma.N[i], mma.Avg[i])
   }
-  s += fmt.Sprintf(" ]{ count:%v momentum:%v pivot:%v }", mma.Count, mma.Momentum, mma.Pivot)
+  s += fmt.Sprintf(
+    " ]{ %v, %v, %v }",
+    mma.Count, mma.Momentum, mma.Pivot)
   return s
 }

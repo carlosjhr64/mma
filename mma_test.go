@@ -11,12 +11,12 @@ func TestMMA(test *testing.T) {
   a.Init(1.0)
 
   s = a.String()
-  if s != "mma[ 2:1 3:1 4:1 ]{ count:1 momentum:0 pivot:false }" { bad("Init or String.") }
+  if s != "mma[ 2:1 3:1 4:1 ]{ 1, 0, false }" { bad("Init or String.") }
 
   a.Add(1.0)
 
   s = a.String()
-  if s != "mma[ 2:1 3:1 4:1 ]{ count:2 momentum:0 pivot:false }" { bad("Add or String.") }
+  if s != "mma[ 2:1 3:1 4:1 ]{ 2, 0, false }" { bad("Add or String.") }
 
   a.Add(2.0)
 
