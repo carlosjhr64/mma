@@ -1,9 +1,10 @@
 package mma
 
 import "fmt"
+import "math"
 import "errors"
 
-const VERSION string = "0.1.0"
+const VERSION string = "0.2.0"
 
 type MMA struct {
   Length int
@@ -13,12 +14,13 @@ type MMA struct {
   Count int
   Momentum float64
   Pivot bool
+  UseLog bool
 }
 
 func New(n ...float64) *MMA {
   length := len(n)
   avg := make([]float64, length)
-  return &MMA{length, n, avg, 0, 0.0, false}
+  return &MMA{length, n, avg, 0, 0.0, false, false}
 }
 
 func (mma *MMA) Init(p float64) {
@@ -45,7 +47,11 @@ func (mma *MMA) Add(p float64) {
   for i:=0; i<mma.Length; i++ {
     a = mma.Avg[i]
     n = mma.N[i]
-    a = ((n - 1.0)*a + p) / n
+    if mma.UseLog {
+      a = math.Exp(((n - 1.0)*math.Log(a) + math.Log(p)) / n)
+    } else {
+      a = ((n - 1.0)*a + p) / n
+    }
     mma.Avg[i] = a
   }
   mma.Count++
